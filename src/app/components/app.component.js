@@ -9,16 +9,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var wifi_data_service_1 = require("../services/wifi-data.service");
 var AppComponent = (function () {
-    function AppComponent() {
-        this.name = 'Angular';
+    function AppComponent(wifiDataService) {
+        this.wifiDataService = wifiDataService;
+        this.wifis = [];
     }
+    AppComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.wifiDataService.getWifis().then(function (wifis) { return _this.wifis = wifis; });
+    };
     AppComponent = __decorate([
         core_1.Component({
+            moduleId: module.id,
             selector: 'my-app',
-            template: "<h1>Hello {{name}}</h1>",
+            templateUrl: '../partial_html/app.component.html'
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [wifi_data_service_1.WifiDataService])
     ], AppComponent);
     return AppComponent;
 }());

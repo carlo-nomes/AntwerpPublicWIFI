@@ -1,5 +1,5 @@
 "use strict";
-var app_component_1 = require('./app.component');
+var app_component_1 = require('./components/app.component.ts');
 var testing_1 = require('@angular/core/testing');
 var platform_browser_1 = require('@angular/platform-browser');
 describe('AppComponent', function () {
