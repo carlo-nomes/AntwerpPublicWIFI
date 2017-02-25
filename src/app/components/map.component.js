@@ -8,24 +8,21 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var user_service_1 = require("../services/user.service");
-var AppComponent = (function () {
-    function AppComponent(userService) {
-        this.userService = userService;
-        this.title = "Public WIFI Antwerp";
+var core_1 = require("@angular/core");
+var MapComponent = (function () {
+    function MapComponent() {
     }
-    AppComponent.prototype.ngOnInit = function () {
+    MapComponent.prototype.ngOnInit = function () {
     };
-    AppComponent = __decorate([
+    MapComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
-            selector: 'my-app',
-            templateUrl: '../partial_html/app.component.html'
+            selector: 'map',
+            template: '<div></div>'
         }), 
-        __metadata('design:paramtypes', [user_service_1.UserService])
-    ], AppComponent);
-    return AppComponent;
+        __metadata('design:paramtypes', [])
+    ], MapComponent);
+    return MapComponent;
 }());
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+exports.MapComponent = MapComponent;
+//# sourceMappingURL=map.component.js.map

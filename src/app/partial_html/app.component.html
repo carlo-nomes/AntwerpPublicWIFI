@@ -1,5 +1,13 @@
-<h1>Open wifi hotspots in Antwerp</h1>
-<ul>
-  <li *ngFor="let wifi of wifis">
-    <span>{{wifi.id}}</span>:<span>{{wifi.coordinates.lat}} - {{wifi.coordinates.lng}}</span></li>
-</ul>
+<h1>{{title}}</h1>
+<nav>
+  <ul>
+    <li>
+      <a routerLink="/login" routerLinkActive="active">Login</a>
+    </li>
+    <li *ngIf="userService.isLoggedIn()">
+      <a routerLink="/map" routerLinkActive="active">Map</a>
+    </li>
+  </ul>
+  <div *ngIf="userService.getUsername()"> Welkom {{userService.getUsername()}}</div>
+</nav>
+<router-outlet></router-outlet>

@@ -8,24 +8,27 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var user_service_1 = require("../services/user.service");
-var AppComponent = (function () {
-    function AppComponent(userService) {
-        this.userService = userService;
-        this.title = "Public WIFI Antwerp";
+var core_1 = require("@angular/core");
+var UserService = (function () {
+    function UserService() {
     }
-    AppComponent.prototype.ngOnInit = function () {
+    UserService.prototype.isLoggedIn = function () {
+        return this.loggedIn;
     };
-    AppComponent = __decorate([
-        core_1.Component({
-            moduleId: module.id,
-            selector: 'my-app',
-            templateUrl: '../partial_html/app.component.html'
-        }), 
-        __metadata('design:paramtypes', [user_service_1.UserService])
-    ], AppComponent);
-    return AppComponent;
+    UserService.prototype.setLoggedIn = function (bool) {
+        this.loggedIn = bool;
+    };
+    UserService.prototype.getUsername = function () {
+        return this.username;
+    };
+    UserService.prototype.setUsername = function (username) {
+        this.username = username;
+    };
+    UserService = __decorate([
+        core_1.Injectable(), 
+        __metadata('design:paramtypes', [])
+    ], UserService);
+    return UserService;
 }());
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+exports.UserService = UserService;
+//# sourceMappingURL=user.service.js.map

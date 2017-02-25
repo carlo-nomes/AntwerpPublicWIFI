@@ -5,4 +5,6 @@ export class Wifi {
     lat: number;
     lng: number;
   };
+
+  location: Location;
 }

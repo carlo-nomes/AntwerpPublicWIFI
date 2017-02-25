@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 
 import {WifiDataService} from "../services/wifi-data.service";
 import {Wifi} from "../entities/wifi";
+import {FacebookService} from "../services/facebook.service";
+import {UserService} from "../services/user.service";
 
 @Component({
   moduleId: module.id,
@@ -9,12 +11,13 @@ import {Wifi} from "../entities/wifi";
   templateUrl: '../partial_html/app.component.html'
 })
 export class AppComponent implements OnInit {
-  wifis: Wifi[] = [];
 
-  constructor(private wifiDataService: WifiDataService) {
+  title = "Public WIFI Antwerp";
+
+  constructor(private userService: UserService) {
   }
 
   ngOnInit(): void {
-    this.wifiDataService.getWifis().then(wifis => this.wifis = wifis);
+
   }
 }
