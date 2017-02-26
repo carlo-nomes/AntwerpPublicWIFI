@@ -12,10 +12,12 @@ var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var login_component_1 = require("./components/login.component");
 var map_component_1 = require("./components/map.component");
+var wifi_component_1 = require("./components/wifi.component");
 var routes = [
-    { path: '', redirectTo: '/map', pathMatch: 'full' },
+    { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: 'login', component: login_component_1.LoginComponent },
     { path: 'map', component: map_component_1.MapComponent },
+    { path: 'table', component: wifi_component_1.WifiComponent },
 ];
 var AppRoutingModule = (function () {
     function AppRoutingModule() {

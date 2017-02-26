@@ -1,0 +1,22 @@
+<div>
+  <table>
+    <tr>
+      <th>
+        <button (click)="orderById()">ID</button>
+      </th>
+      <th>
+        <button (click)="orderByLocation()">Location</button>
+      </th>
+      <th>
+        <button (click)="orderByAddress()">Address</button>
+      </th>
+    </tr>
+    <template let-wifi ngFor [ngForOf]="wifis">
+      <tr>
+        <td>{{wifi.id}}</td>
+        <td>{{wifi.location.name}}</td>
+        <td>{{wifi.location.city}}, {{wifi.location.street}} {{wifi.location.nr}}</td>
+      </tr>
+    </template>
+  </table>
+</div>

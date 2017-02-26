@@ -13,11 +13,6 @@ var wifi_data_service_1 = require("../services/wifi-data.service");
 var MapComponent = (function () {
     function MapComponent(wifiDataService) {
         this.wifiDataService = wifiDataService;
-        // google maps zoom level
-        this.zoom = 8;
-        // initial center position for the map
-        this.lat = 51.673858;
-        this.lng = 7.815982;
     }
     MapComponent.prototype.ngOnInit = function () {
         var _this = this;

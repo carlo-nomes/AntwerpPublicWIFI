@@ -11,13 +11,14 @@ import {UserService} from "./services/user.service";
 import {AppComponent}  from './components/app.component';
 import {LoginComponent} from "./components/login.component";
 import {MapComponent} from "./components/map.component";
+import {WifiComponent} from "./components/wifi.component";
 
 const mapsKey = 'AIzaSyD1gwz5JDce1wCo1v9pjU0f1qH0b8i97LY';
 
 
 @NgModule({
   imports: [BrowserModule, HttpModule, AppRoutingModule],
-  declarations: [AppComponent, LoginComponent, MapComponent],
+  declarations: [AppComponent, LoginComponent, WifiComponent, MapComponent],
   bootstrap: [AppComponent],
   providers: [WifiDataService, FacebookService, UserService]
 })

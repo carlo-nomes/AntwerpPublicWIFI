@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
         this.fbService.isLoggedIn().then(r => this.userService.setLoggedIn(r));
         this.fbService.getFirstName().then(r => this.userService.setUsername(r));
 
-        this.router.navigate(['/map']);
+        this.router.navigate(['/table']);
       });
 
     });

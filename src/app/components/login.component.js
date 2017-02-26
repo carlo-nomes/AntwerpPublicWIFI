@@ -31,7 +31,7 @@ var LoginComponent = (function () {
                 _this.statusChangeCallback(r);
                 _this.fbService.isLoggedIn().then(function (r) { return _this.userService.setLoggedIn(r); });
                 _this.fbService.getFirstName().then(function (r) { return _this.userService.setUsername(r); });
-                _this.router.navigate(['/map']);
+                _this.router.navigate(['/table']);
             });
         });
     };

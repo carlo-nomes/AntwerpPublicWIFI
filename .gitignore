@@ -75,3 +75,4 @@ crashlytics.properties
 crashlytics-build.properties
 fabric.properties
 npm-debug.log.3260313071
+*npm-debug.log*
