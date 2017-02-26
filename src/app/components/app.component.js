@@ -13,7 +13,6 @@ var user_service_1 = require("../services/user.service");
 var AppComponent = (function () {
     function AppComponent(userService) {
         this.userService = userService;
-        this.title = "Public WIFI Antwerp";
     }
     AppComponent.prototype.ngOnInit = function () {
     };
@@ -21,7 +20,7 @@ var AppComponent = (function () {
         core_1.Component({
             moduleId: module.id,
             selector: 'my-app',
-            templateUrl: '../partial_html/app.component.html'
+            templateUrl: '../partial_html/app.component.html',
         }), 
         __metadata('design:paramtypes', [user_service_1.UserService])
     ], AppComponent);

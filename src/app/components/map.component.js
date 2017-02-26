@@ -9,18 +9,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require("@angular/core");
+var wifi_data_service_1 = require("../services/wifi-data.service");
 var MapComponent = (function () {
-    function MapComponent() {
+    function MapComponent(wifiDataService) {
+        this.wifiDataService = wifiDataService;
+        // google maps zoom level
+        this.zoom = 8;
+        // initial center position for the map
+        this.lat = 51.673858;
+        this.lng = 7.815982;
     }
     MapComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.wifiDataService.getWifis().then(function (r) { return _this.wifis = r; });
     };
     MapComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
             selector: 'map',
-            template: '<div></div>'
+            templateUrl: '../partial_html/map.component.html'
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [wifi_data_service_1.WifiDataService])
     ], MapComponent);
     return MapComponent;
 }());

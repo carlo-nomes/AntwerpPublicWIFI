@@ -18,6 +18,7 @@ var user_service_1 = require("./services/user.service");
 var app_component_1 = require('./components/app.component');
 var login_component_1 = require("./components/login.component");
 var map_component_1 = require("./components/map.component");
+var mapsKey = 'AIzaSyD1gwz5JDce1wCo1v9pjU0f1qH0b8i97LY';
 var AppModule = (function () {
     function AppModule() {
     }

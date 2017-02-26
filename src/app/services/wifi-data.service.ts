@@ -4,6 +4,7 @@ import {Http} from "@angular/http";
 import 'rxjs/add/operator/toPromise';
 
 import {Wifi} from "../entities/wifi";
+
 @Injectable()
 export class WifiDataService {
   private localUrl = './../fakeAPI/wifiopenbaar.json';
@@ -16,7 +17,7 @@ export class WifiDataService {
   getWifis(): Promise<Wifi[]> {
     return this.http.get(this.url)
       .toPromise()
-      .then(response => response.json().data.map((w:any) => this.mapToWifi(w)) as Wifi[])
+      .then(response => response.json().data.map(w => this.mapToWifi(w)) as Wifi[])
       .catch(this.handleError);
   }
 
@@ -31,6 +32,13 @@ export class WifiDataService {
       coordinates: {
         lat: org.point_lat,
         lng: org.point_lng
+      },
+      location: {
+        name: org.locatie,
+        street: org.straat,
+        nr: org.huisnr,
+        code: org.postcode,
+        city: org.gemeente
       }
     } as Wifi
   }

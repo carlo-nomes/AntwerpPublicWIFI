@@ -6,5 +6,11 @@ export class Wifi {
     lng: number;
   };
 
-  location: Location;
+  location: {
+    name: string;
+    street: string;
+    nr: string;
+    code: string;
+    city: string;
+  };
 }

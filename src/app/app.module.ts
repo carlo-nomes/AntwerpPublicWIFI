@@ -12,6 +12,8 @@ import {AppComponent}  from './components/app.component';
 import {LoginComponent} from "./components/login.component";
 import {MapComponent} from "./components/map.component";
 
+const mapsKey = 'AIzaSyD1gwz5JDce1wCo1v9pjU0f1qH0b8i97LY';
+
 
 @NgModule({
   imports: [BrowserModule, HttpModule, AppRoutingModule],

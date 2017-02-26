@@ -35,6 +35,13 @@ var WifiDataService = (function () {
             coordinates: {
                 lat: org.point_lat,
                 lng: org.point_lng
+            },
+            location: {
+                name: org.locatie,
+                street: org.straat,
+                nr: org.huisnr,
+                code: org.postcode,
+                city: org.gemeente
             }
         };
     };

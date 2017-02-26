@@ -5,7 +5,7 @@ import {LoginComponent} from "./components/login.component";
 import {MapComponent} from "./components/map.component";
 
 const routes: Routes = [
-  {path: '', redirectTo: '/login', pathMatch: 'full'},
+  {path: '', redirectTo: '/map', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
   {path: 'map', component: MapComponent},
 
