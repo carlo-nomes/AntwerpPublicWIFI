@@ -16,7 +16,7 @@ var WifiDataService = (function () {
         this.http = http;
         this.localUrl = './../fakeAPI/wifiopenbaar.json';
         this.realUrl = 'http://datasets.antwerpen.be/v4/gis/wifiopenbaar.json';
-        this.url = this.localUrl;
+        this.url = this.realUrl;
     }
     WifiDataService.prototype.getWifis = function () {
         var _this = this;

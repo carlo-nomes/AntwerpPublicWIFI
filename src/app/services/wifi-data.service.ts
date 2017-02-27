@@ -10,7 +10,7 @@ import {Wifi} from "../entities/wifi";
 export class WifiDataService {
   private localUrl = './../fakeAPI/wifiopenbaar.json';
   private realUrl = 'http://datasets.antwerpen.be/v4/gis/wifiopenbaar.json';
-  private url = this.localUrl;
+  private url = this.realUrl;
 
   constructor(private http: Http) {
   }

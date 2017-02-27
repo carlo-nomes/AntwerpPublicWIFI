@@ -4,7 +4,7 @@
 
 <div *ngIf="userService.isLoggedIn()" class="container">
     <div class="text-right">
-      <div *ngIf="userService.getUsername()"><strong> Hallo {{userService.getUsername()}} </strong></div>
+      <div *ngIf="userService.getUsername()"><strong> Hello {{userService.getUsername()}} </strong></div>
       <button type="button" class="btn btn-warning btn-sm" (click)="onLogout()"> Sign out</button>
     </div>
 </div>
