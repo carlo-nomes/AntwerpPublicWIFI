@@ -1,6 +1,8 @@
 import {Component, OnInit} from "@angular/core";
 import {WifiDataService} from "../services/wifi-data.service";
 import {Wifi} from "../entities/wifi";
+import {Router} from "@angular/router";
+import {UserService} from "../services/user.service";
 @Component({
   moduleId: module.id,
   selector: 'wifi',
@@ -13,11 +15,13 @@ export class WifiComponent implements OnInit {
   private isOrderdByLocationAsc: boolean;
   private isOrderdByStreetAsc: boolean;
 
-  constructor(private wifiService: WifiDataService) {
+  constructor(private wifiService: WifiDataService, private router: Router, private userService: UserService) {
 
   }
 
   ngOnInit(): void {
+    if (!this.userService.isLoggedIn()) this.router.navigate(['/login']);
+
     this.wifiService.getWifis().then(r => {
       this.wifis = r;
       this.wifis.sort((a, b) => a.id - b.id);

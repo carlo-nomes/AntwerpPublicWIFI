@@ -1,22 +1,48 @@
+<wifi-search></wifi-search>
+
 <div>
-  <table>
+  <table class="table table-hover">
+    <thead>
     <tr>
       <th>
-        <button (click)="orderById()">ID</button>
+        <h2>ID
+          <button type="button" class="btn btn-primary btn-sm" (click)="orderById()">
+            <i class="fa fa-arrows-v" aria-hidden="true"></i>
+          </button>
+        </h2>
+
       </th>
       <th>
-        <button (click)="orderByLocation()">Location</button>
+        <h2>Location
+          <button type="button" class="btn btn-primary btn-sm" (click)="orderByLocation()">
+            <i class="fa fa-arrows-v" aria-hidden="true"></i>
+          </button>
+        </h2>
+
       </th>
       <th>
-        <button (click)="orderByAddress()">Address</button>
+        <h2>Address
+          <button type="button" class="btn btn-primary btn-sm" (click)="orderByAddress()">
+            <i class="fa fa-arrows-v" aria-hidden="true"></i>
+          </button>
+        </h2>
+
       </th>
     </tr>
+    </thead>
+    <tbody>
     <template let-wifi ngFor [ngForOf]="wifis">
       <tr>
         <td>{{wifi.id}}</td>
         <td>{{wifi.location.name}}</td>
-        <td>{{wifi.location.city}}, {{wifi.location.street}} {{wifi.location.nr}}</td>
+        <td>
+          <a href="http://www.google.com/maps/place/{{wifi.coordinates.lat}},{{wifi.coordinates.lng}}" target="_blank">
+            {{wifi.location.city}},
+            {{wifi.location.street}} {{wifi.location.nr}}
+          </a>
+        </td>
       </tr>
     </template>
+    </tbody>
   </table>
 </div>

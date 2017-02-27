@@ -10,11 +10,36 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var user_service_1 = require("../services/user.service");
+var facebook_service_1 = require("../services/facebook.service");
+var router_1 = require("@angular/router");
 var AppComponent = (function () {
-    function AppComponent(userService) {
+    function AppComponent(userService, fbService, router) {
         this.userService = userService;
+        this.fbService = fbService;
+        this.router = router;
     }
     AppComponent.prototype.ngOnInit = function () {
+    };
+    AppComponent.prototype.onLogout = function () {
+        var _this = this;
+        this.fbService.logout().then(function (r) {
+            _this.statusChangeCallback(r);
+            _this.router.navigate(['/login']);
+        });
+    };
+    AppComponent.prototype.statusChangeCallback = function (resp) {
+        var _this = this;
+        if (resp.status === 'connected') {
+            console.log("User connected. id: " + resp.authResponse.userID);
+        }
+        else if (resp.status === 'not_authorized') {
+            console.log("No user authorized");
+        }
+        else {
+            console.log("No user logged in");
+        }
+        this.fbService.isLoggedIn().then(function (r) { return _this.userService.setLoggedIn(r); });
+        this.fbService.getFirstName().then(function (r) { return _this.userService.setUsername(r); });
     };
     AppComponent = __decorate([
         core_1.Component({
@@ -22,7 +47,7 @@ var AppComponent = (function () {
             selector: 'my-app',
             templateUrl: '../partial_html/app.component.html',
         }), 
-        __metadata('design:paramtypes', [user_service_1.UserService])
+        __metadata('design:paramtypes', [user_service_1.UserService, facebook_service_1.FacebookService, router_1.Router])
     ], AppComponent);
     return AppComponent;
 }());

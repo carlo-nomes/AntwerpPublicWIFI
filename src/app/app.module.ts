@@ -2,6 +2,8 @@ import {NgModule}      from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {HttpModule} from "@angular/http";
 
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 import {AppRoutingModule} from "./app-routing.module";
 
 import {WifiDataService} from "./services/wifi-data.service";
@@ -10,15 +12,12 @@ import {UserService} from "./services/user.service";
 
 import {AppComponent}  from './components/app.component';
 import {LoginComponent} from "./components/login.component";
-import {MapComponent} from "./components/map.component";
 import {WifiComponent} from "./components/wifi.component";
-
-const mapsKey = 'AIzaSyD1gwz5JDce1wCo1v9pjU0f1qH0b8i97LY';
-
+import {SearchComponent} from "./components/search.component";
 
 @NgModule({
-  imports: [BrowserModule, HttpModule, AppRoutingModule],
-  declarations: [AppComponent, LoginComponent, WifiComponent, MapComponent],
+  imports: [BrowserModule, HttpModule, AppRoutingModule, NgbModule.forRoot()],
+  declarations: [AppComponent, LoginComponent, WifiComponent, SearchComponent],
   bootstrap: [AppComponent],
   providers: [WifiDataService, FacebookService, UserService]
 })

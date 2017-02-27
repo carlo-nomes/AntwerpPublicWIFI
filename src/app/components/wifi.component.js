@@ -10,12 +10,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var wifi_data_service_1 = require("../services/wifi-data.service");
+var router_1 = require("@angular/router");
+var user_service_1 = require("../services/user.service");
 var WifiComponent = (function () {
-    function WifiComponent(wifiService) {
+    function WifiComponent(wifiService, router, userService) {
         this.wifiService = wifiService;
+        this.router = router;
+        this.userService = userService;
     }
     WifiComponent.prototype.ngOnInit = function () {
         var _this = this;
+        if (!this.userService.isLoggedIn())
+            this.router.navigate(['/login']);
         this.wifiService.getWifis().then(function (r) {
             _this.wifis = r;
             _this.wifis.sort(function (a, b) { return a.id - b.id; });
@@ -70,7 +76,7 @@ var WifiComponent = (function () {
             selector: 'wifi',
             templateUrl: '../partial_html/wifi.component.html'
         }), 
-        __metadata('design:paramtypes', [wifi_data_service_1.WifiDataService])
+        __metadata('design:paramtypes', [wifi_data_service_1.WifiDataService, router_1.Router, user_service_1.UserService])
     ], WifiComponent);
     return WifiComponent;
 }());

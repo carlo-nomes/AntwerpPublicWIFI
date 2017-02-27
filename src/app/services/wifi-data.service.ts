@@ -1,5 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Http} from "@angular/http";
+import {Observable} from 'rxjs/Rx';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -19,6 +20,14 @@ export class WifiDataService {
       .toPromise()
       .then(response => response.json().data.map(w => this.mapToWifi(w)) as Wifi[])
       .catch(this.handleError);
+  }
+
+  search(term: string): Observable<Wifi[]> {
+    return Observable.fromPromise(
+      this.getWifis().then(r =>
+        r.filter(ws => ws.location.name.match(term))
+      )
+    );
   }
 
   handleError(error: any): Promise<any> {

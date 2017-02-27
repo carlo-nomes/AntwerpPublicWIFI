@@ -1,13 +1,15 @@
-<h1>{{title}}</h1>
-<nav>
-  <ul>
-    <li>
-      <a routerLink="/login" routerLinkActive="active">Login</a>
-    </li>
-    <li *ngIf="userService.isLoggedIn()">
-    <a routerLink="/table" routerLinkActive="active">Table</a>
-  </li>
-  </ul>
-  <div *ngIf="userService.getUsername()"> Welkom {{userService.getUsername()}}</div>
+<nav *ngIf="userService.isLoggedIn()" class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-right">
+      <div *ngIf="userService.getUsername()"> Hallo {{userService.getUsername()}}</div>
+      <button type="button" class="btn btn-warning btn-sm" (click)="onLogout()"> Sign out</button>
+    </div>
+  </div>
 </nav>
-<router-outlet></router-outlet>
+
+
+<div class="container">
+  <div class="center-block">
+    <router-outlet></router-outlet>
+  </div>
+</div>
