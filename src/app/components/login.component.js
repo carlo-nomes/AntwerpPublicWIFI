@@ -20,8 +20,7 @@ var LoginComponent = (function () {
     }
     LoginComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.fbService.isLoggedIn().then(function (r) { return _this.userService.setLoggedIn(r); });
-        this.fbService.getFirstName().then(function (r) { return _this.userService.setUsername(r); });
+        this.fbService.getLoginStatus().then(function (r) { return _this.statusChangeCallback(r); });
     };
     LoginComponent.prototype.onLogin = function () {
         var _this = this;
@@ -29,8 +28,6 @@ var LoginComponent = (function () {
             _this.statusChangeCallback(r);
             _this.fbService.isLoggedIn().then(function (r) {
                 _this.statusChangeCallback(r);
-                _this.fbService.isLoggedIn().then(function (r) { return _this.userService.setLoggedIn(r); });
-                _this.fbService.getFirstName().then(function (r) { return _this.userService.setUsername(r); });
                 _this.router.navigate(['/table']);
             });
         });
@@ -39,11 +36,10 @@ var LoginComponent = (function () {
         var _this = this;
         this.fbService.logout().then(function (r) {
             _this.statusChangeCallback(r);
-            _this.fbService.isLoggedIn().then(function (r) { return _this.userService.setLoggedIn(r); });
-            _this.fbService.getFirstName().then(function (r) { return _this.userService.setUsername(r); });
         });
     };
     LoginComponent.prototype.statusChangeCallback = function (resp) {
+        var _this = this;
         if (resp.status === 'connected') {
             console.log("User connected. id: " + resp.authResponse.userID);
         }
@@ -53,6 +49,8 @@ var LoginComponent = (function () {
         else {
             console.log("No user logged in");
         }
+        this.fbService.isLoggedIn().then(function (r) { return _this.userService.setLoggedIn(r); });
+        this.fbService.getFirstName().then(function (r) { return _this.userService.setUsername(r); });
     };
     LoginComponent = __decorate([
         core_1.Component({

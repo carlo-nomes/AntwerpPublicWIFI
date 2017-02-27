@@ -17,8 +17,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.fbService.isLoggedIn().then(r => this.userService.setLoggedIn(r));
-    this.fbService.getFirstName().then(r => this.userService.setUsername(r));
+    this.fbService.getLoginStatus().then(r => this.statusChangeCallback(r));
   }
 
   onLogin(): void {
@@ -26,9 +25,6 @@ export class LoginComponent implements OnInit {
       this.statusChangeCallback(r);
       this.fbService.isLoggedIn().then(r => {
         this.statusChangeCallback(r);
-        this.fbService.isLoggedIn().then(r => this.userService.setLoggedIn(r));
-        this.fbService.getFirstName().then(r => this.userService.setUsername(r));
-
         this.router.navigate(['/table']);
       });
 
@@ -38,8 +34,6 @@ export class LoginComponent implements OnInit {
   onLogout(): void {
     this.fbService.logout().then(r => {
       this.statusChangeCallback(r);
-      this.fbService.isLoggedIn().then(r => this.userService.setLoggedIn(r));
-      this.fbService.getFirstName().then(r => this.userService.setUsername(r));
     });
   }
 
@@ -51,5 +45,7 @@ export class LoginComponent implements OnInit {
     } else {
       console.log("No user logged in");
     }
+    this.fbService.isLoggedIn().then(r => this.userService.setLoggedIn(r));
+    this.fbService.getFirstName().then(r => this.userService.setUsername(r));
   }
 }

@@ -28,10 +28,13 @@ var FacebookService = (function () {
             FB.logout(function (r) { return resolve(r); });
         });
     };
-    FacebookService.prototype.isLoggedIn = function () {
+    FacebookService.prototype.getLoginStatus = function () {
         return new Promise(function (resolve) {
-            FB.getLoginStatus(function (r) { return resolve(r.status === 'connected'); });
+            FB.getLoginStatus(function (r) { return resolve(r); });
         });
+    };
+    FacebookService.prototype.isLoggedIn = function () {
+        return this.getLoginStatus().then(function (r) { return r.status === 'connected'; });
     };
     FacebookService.prototype.getMe = function (fields) {
         return new Promise(function (resolve) {

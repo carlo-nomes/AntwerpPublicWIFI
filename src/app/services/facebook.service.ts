@@ -29,12 +29,16 @@ export class FacebookService {
     );
   }
 
-  isLoggedIn(): Promise<boolean> {
+  getLoginStatus(): Promise<any> {
     return new Promise(
-      (resolve: (res: boolean) => void) => {
-        FB.getLoginStatus(r => resolve(r.status === 'connected'));
+      (resolve: (res: any) => void) => {
+        FB.getLoginStatus(r => resolve(r));
       }
-    );
+    )
+  }
+
+  isLoggedIn(): Promise<boolean> {
+    return this.getLoginStatus().then(r => r.status === 'connected');
   }
 
   getMe(fields: string): Promise<any> {
