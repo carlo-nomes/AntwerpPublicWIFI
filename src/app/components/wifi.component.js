@@ -11,64 +11,40 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require("@angular/core");
 var wifi_data_service_1 = require("../services/wifi-data.service");
 var router_1 = require("@angular/router");
+var Observable_1 = require('rxjs/Observable');
+var Subject_1 = require('rxjs/Subject');
+// Observable class extensions
+require('rxjs/add/observable/of');
+// Observable operators
+require('rxjs/add/operator/catch');
+require('rxjs/add/operator/debounceTime');
+require('rxjs/add/operator/distinctUntilChanged');
+require('rxjs/add/operator/switchMap');
 var user_service_1 = require("../services/user.service");
 var WifiComponent = (function () {
     function WifiComponent(wifiService, router, userService) {
         this.wifiService = wifiService;
         this.router = router;
         this.userService = userService;
+        this.searchTerms = new Subject_1.Subject();
     }
     WifiComponent.prototype.ngOnInit = function () {
         var _this = this;
         if (!this.userService.isLoggedIn())
             this.router.navigate(['/login']);
-        this.wifiService.getWifis().then(function (r) {
-            _this.wifis = r;
-            _this.wifis.sort(function (a, b) { return a.id - b.id; });
-            _this.isOrderdByIdAsc = true;
+        this.wifis = this.searchTerms
+            .debounceTime(300) //wait 300 ms after each keystroke before considering the term
+            .distinctUntilChanged() // ignore if next search term is same as previous
+            .switchMap(function (term) { return term // switch to new observable each time the term changes
+            ? _this.wifiService.search(term) // or the observable of empty heroes if there was no search term
+            : _this.wifiService.getWifis(); })
+            .catch(function (error) {
+            console.log(error);
+            return Observable_1.Observable.of([]);
         });
     };
-    WifiComponent.prototype.orderById = function () {
-        if (this.isOrderdByIdAsc) {
-            this.wifis.sort(function (a, b) { return b.id - a.id; });
-            this.isOrderdByIdAsc = false;
-            this.isOrderdByLocationAsc = false;
-            this.isOrderdByStreetAsc = false;
-        }
-        else {
-            this.wifis.sort(function (b, a) { return b.id - a.id; });
-            this.isOrderdByIdAsc = true;
-            this.isOrderdByLocationAsc = false;
-            this.isOrderdByStreetAsc = false;
-        }
-    };
-    WifiComponent.prototype.orderByLocation = function () {
-        if (this.isOrderdByLocationAsc) {
-            this.wifis.sort(function (a, b) { return b.location.name.localeCompare(a.location.name); });
-            this.isOrderdByIdAsc = false;
-            this.isOrderdByLocationAsc = false;
-            this.isOrderdByStreetAsc = false;
-        }
-        else {
-            this.wifis.sort(function (b, a) { return b.location.name.localeCompare(a.location.name); });
-            this.isOrderdByIdAsc = false;
-            this.isOrderdByLocationAsc = true;
-            this.isOrderdByStreetAsc = false;
-        }
-    };
-    WifiComponent.prototype.orderByAddress = function () {
-        if (this.isOrderdByStreetAsc) {
-            this.wifis.sort(function (a, b) { return b.location.city.concat(b.location.street).concat(b.location.nr).localeCompare(a.location.city.concat(a.location.street).concat(a.location.nr)); });
-            this.isOrderdByIdAsc = false;
-            this.isOrderdByLocationAsc = false;
-            this.isOrderdByStreetAsc = false;
-        }
-        else {
-            this.wifis.sort(function (b, a) { return b.location.city.concat(b.location.street).concat(b.location.nr).localeCompare(a.location.city.concat(a.location.street).concat(a.location.nr)); });
-            this.isOrderdByIdAsc = false;
-            this.isOrderdByLocationAsc = false;
-            this.isOrderdByStreetAsc = true;
-        }
+    WifiComponent.prototype.search = function (term) {
+        this.searchTerms.next(term);
     };
     WifiComponent = __decorate([
         core_1.Component({

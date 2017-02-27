@@ -19,14 +19,13 @@ var user_service_1 = require("./services/user.service");
 var app_component_1 = require('./components/app.component');
 var login_component_1 = require("./components/login.component");
 var wifi_component_1 = require("./components/wifi.component");
-var search_component_1 = require("./components/search.component");
 var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         core_1.NgModule({
             imports: [platform_browser_1.BrowserModule, http_1.HttpModule, app_routing_module_1.AppRoutingModule, ng_bootstrap_1.NgbModule.forRoot()],
-            declarations: [app_component_1.AppComponent, login_component_1.LoginComponent, wifi_component_1.WifiComponent, search_component_1.SearchComponent],
+            declarations: [app_component_1.AppComponent, login_component_1.LoginComponent, wifi_component_1.WifiComponent],
             bootstrap: [app_component_1.AppComponent],
             providers: [wifi_data_service_1.WifiDataService, facebook_service_1.FacebookService, user_service_1.UserService]
         }), 

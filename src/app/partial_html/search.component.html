@@ -1,8 +1,0 @@
-<div>
-  <input #searchBox id="search-box" (keyup)="search(searchBox.value)"/>
-  <div>
-    <div *ngFor="let wifi of wifis | async" class="search-result">
-      {{wifi.location.name}}
-    </div>
-  </div>
-</div>

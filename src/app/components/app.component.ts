@@ -11,6 +11,7 @@ import {Router} from "@angular/router";
 
 })
 export class AppComponent implements OnInit {
+  title = "Public wifi-hotspots in Antwerp";
 
   constructor(private userService: UserService, private fbService: FacebookService, private router: Router) {
   }

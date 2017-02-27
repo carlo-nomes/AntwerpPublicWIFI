@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {Http} from "@angular/http";
 import {Observable} from 'rxjs/Rx';
 
-import 'rxjs/add/operator/toPromise';
+import  'rxjs/add/operator/map';
 
 import {Wifi} from "../entities/wifi";
 
@@ -15,18 +15,15 @@ export class WifiDataService {
   constructor(private http: Http) {
   }
 
-  getWifis(): Promise<Wifi[]> {
+  getWifis(): Observable<Wifi[]> {
     return this.http.get(this.url)
-      .toPromise()
-      .then(response => response.json().data.map(w => this.mapToWifi(w)) as Wifi[])
+      .map(r => r.json().data.map(w => this.mapToWifi(w)) as Wifi[])
       .catch(this.handleError);
   }
 
   search(term: string): Observable<Wifi[]> {
-    return Observable.fromPromise(
-      this.getWifis().then(r =>
-        r.filter(ws => ws.location.name.match(term))
-      )
+    return this.getWifis().map(r =>
+      r.filter(ws => ws.location.city.concat(ws.location.code).toLowerCase().match(term.toLocaleLowerCase()))
     );
   }
 

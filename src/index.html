@@ -29,11 +29,15 @@
       console.error(err);
     });
   </script>
-
-
 </head>
 
 <body>
-<my-app>Loading...</my-app>
+<my-app>
+  <div class="center-block text-center" style="position: relative; height: 100vh;">
+    <div style="position: absolute;  top: 50%;  left: 50%;  transform: translate(-50%, -50%);">
+      <i class="fa fa-spinner spinner" aria-hidden="true"></i>
+    </div>
+  </div>
+</my-app>
 </body>
 </html>

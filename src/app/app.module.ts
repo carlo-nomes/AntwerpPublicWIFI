@@ -13,11 +13,10 @@ import {UserService} from "./services/user.service";
 import {AppComponent}  from './components/app.component';
 import {LoginComponent} from "./components/login.component";
 import {WifiComponent} from "./components/wifi.component";
-import {SearchComponent} from "./components/search.component";
 
 @NgModule({
   imports: [BrowserModule, HttpModule, AppRoutingModule, NgbModule.forRoot()],
-  declarations: [AppComponent, LoginComponent, WifiComponent, SearchComponent],
+  declarations: [AppComponent, LoginComponent, WifiComponent],
   bootstrap: [AppComponent],
   providers: [WifiDataService, FacebookService, UserService]
 })

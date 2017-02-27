@@ -17,6 +17,7 @@ var AppComponent = (function () {
         this.userService = userService;
         this.fbService = fbService;
         this.router = router;
+        this.title = "Public wifi-hotspots in Antwerp";
     }
     AppComponent.prototype.ngOnInit = function () {
     };

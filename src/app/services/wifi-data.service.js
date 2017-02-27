@@ -10,8 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
-var Rx_1 = require('rxjs/Rx');
-require('rxjs/add/operator/toPromise');
+require('rxjs/add/operator/map');
 var WifiDataService = (function () {
     function WifiDataService(http) {
         this.http = http;
@@ -22,14 +21,13 @@ var WifiDataService = (function () {
     WifiDataService.prototype.getWifis = function () {
         var _this = this;
         return this.http.get(this.url)
-            .toPromise()
-            .then(function (response) { return response.json().data.map(function (w) { return _this.mapToWifi(w); }); })
+            .map(function (r) { return r.json().data.map(function (w) { return _this.mapToWifi(w); }); })
             .catch(this.handleError);
     };
     WifiDataService.prototype.search = function (term) {
-        return Rx_1.Observable.fromPromise(this.getWifis().then(function (r) {
-            return r.filter(function (ws) { return ws.location.name.match(term); });
-        }));
+        return this.getWifis().map(function (r) {
+            return r.filter(function (ws) { return ws.location.city.concat(ws.location.code).toLowerCase().match(term.toLocaleLowerCase()); });
+        });
     };
     WifiDataService.prototype.handleError = function (error) {
         console.error('An Error occurred', error);

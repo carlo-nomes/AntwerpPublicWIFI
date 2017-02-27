@@ -1,8 +1,21 @@
 import {Component, OnInit} from "@angular/core";
 import {WifiDataService} from "../services/wifi-data.service";
-import {Wifi} from "../entities/wifi";
 import {Router} from "@angular/router";
+import {Observable} from 'rxjs/Observable';
+import {Subject} from 'rxjs/Subject';
+
+// Observable class extensions
+import 'rxjs/add/observable/of';
+
+// Observable operators
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/switchMap';
+
+import {Wifi} from "../entities/wifi";
 import {UserService} from "../services/user.service";
+
 @Component({
   moduleId: module.id,
   selector: 'wifi',
@@ -10,10 +23,8 @@ import {UserService} from "../services/user.service";
 })
 
 export class WifiComponent implements OnInit {
-  private wifis: Wifi[];
-  private isOrderdByIdAsc: boolean;
-  private isOrderdByLocationAsc: boolean;
-  private isOrderdByStreetAsc: boolean;
+  wifis: Observable<Wifi[]>
+  private searchTerms = new Subject<string>();
 
   constructor(private wifiService: WifiDataService, private router: Router, private userService: UserService) {
 
@@ -21,59 +32,19 @@ export class WifiComponent implements OnInit {
 
   ngOnInit(): void {
     if (!this.userService.isLoggedIn()) this.router.navigate(['/login']);
-
-    this.wifiService.getWifis().then(r => {
-      this.wifis = r;
-      this.wifis.sort((a, b) => a.id - b.id);
-      this.isOrderdByIdAsc = true;
-    });
+    this.wifis = this.searchTerms
+      .debounceTime(300) //wait 300 ms after each keystroke before considering the term
+      .distinctUntilChanged() // ignore if next search term is same as previous
+      .switchMap(term => term // switch to new observable each time the term changes
+        ? this.wifiService.search(term) // or the observable of empty heroes if there was no search term
+        : this.wifiService.getWifis())
+      .catch(error => {
+        console.log(error);
+        return Observable.of<Wifi[]>([]);
+      });
   }
 
-  orderById(): void {
-    if (this.isOrderdByIdAsc) {
-      this.wifis.sort((a, b) => b.id - a.id);
-
-      this.isOrderdByIdAsc = false;
-      this.isOrderdByLocationAsc = false;
-      this.isOrderdByStreetAsc = false;
-    } else {
-      this.wifis.sort((b, a) => b.id - a.id);
-
-      this.isOrderdByIdAsc = true;
-      this.isOrderdByLocationAsc = false;
-      this.isOrderdByStreetAsc = false;
-    }
-  }
-
-  orderByLocation(): void {
-    if (this.isOrderdByLocationAsc) {
-      this.wifis.sort((a, b) => b.location.name.localeCompare(a.location.name));
-
-      this.isOrderdByIdAsc = false;
-      this.isOrderdByLocationAsc = false;
-      this.isOrderdByStreetAsc = false;
-    } else {
-      this.wifis.sort((b, a) => b.location.name.localeCompare(a.location.name));
-
-      this.isOrderdByIdAsc = false;
-      this.isOrderdByLocationAsc = true;
-      this.isOrderdByStreetAsc = false;
-    }
-  }
-
-  orderByAddress(): void {
-    if (this.isOrderdByStreetAsc) {
-      this.wifis.sort((a, b) => b.location.city.concat(b.location.street).concat(b.location.nr).localeCompare(a.location.city.concat(a.location.street).concat(a.location.nr)));
-
-      this.isOrderdByIdAsc = false;
-      this.isOrderdByLocationAsc = false;
-      this.isOrderdByStreetAsc = false;
-    } else {
-      this.wifis.sort((b, a) => b.location.city.concat(b.location.street).concat(b.location.nr).localeCompare(a.location.city.concat(a.location.street).concat(a.location.nr)));
-
-      this.isOrderdByIdAsc = false;
-      this.isOrderdByLocationAsc = false;
-      this.isOrderdByStreetAsc = true;
-    }
+  search(term: string): void {
+    this.searchTerms.next(term);
   }
 }
